@@ -29,7 +29,6 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         btnGoToLogin = findViewById(R.id.btnGoToLogin);
 
-        // 🔹 Register button
         btnRegister.setOnClickListener(v -> {
             String Username = etusername.getText().toString().trim();
             String Password = etpassword.getText().toString().trim();
@@ -44,7 +43,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        // 🔹 Go back to login
         btnGoToLogin.setOnClickListener(v -> {
             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
             startActivity(intent);
@@ -52,11 +50,10 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    // 🔹 Function to send data to PHP API
     private void registerUser(String username, String password) {
         new Thread(() -> {
             try {
-                URL url = new URL("http://10.0.2.2/login_app/register.php"); // Emulator localhost
+                URL url = new URL("http://10.0.2.2/login_app/register.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);
@@ -67,7 +64,6 @@ public class RegisterActivity extends AppCompatActivity {
                 os.flush();
                 os.close();
 
-                // Read response
                 InputStream is = conn.getInputStream();
                 int ch;
                 StringBuilder sb = new StringBuilder();
@@ -83,7 +79,6 @@ public class RegisterActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_LONG).show();
                     if (success) {
-                        // if registration successful, go back to login screen
                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();

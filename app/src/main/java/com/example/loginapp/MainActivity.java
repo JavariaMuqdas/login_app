@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private void login(String username, String password) {
         new Thread(() -> {
             try {
-                URL url = new URL("http://10.0.2.2/login_app/login.php"); // replace with your server URL
+                URL url = new URL("http://10.0.2.2/login_app/login.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);
@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 os.flush();
                 os.close();
 
-                // Read response
                 InputStream is = conn.getInputStream();
                 int ch;
                 StringBuilder sb = new StringBuilder();
@@ -69,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 is.close();
 
-                // Parse JSON
                 JSONObject response = new JSONObject(sb.toString());
                 boolean success = response.getBoolean("success");
                 String message = response.getString("message");
@@ -79,10 +77,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
 
                     if (success) {
-                        // Login successful → go to home screen or dashboard
                         startActivity(new Intent(MainActivity.this, homepage.class));
                     } else {
-                        // If user not registered → redirect to RegisterActivity
                         if (message.equals("User not registered")) {
                             Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                             startActivity(intent);

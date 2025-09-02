@@ -6,13 +6,11 @@
     android:background="@drawable/bg2"
     android:gravity="center">
 
-    <!-- Semi-transparent overlay -->
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#AA000000"/>
 
-    <!-- Centered Login Card -->
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="300dp"
